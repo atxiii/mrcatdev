@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="mrcatdev">
+    <meta name="description" content="I'm MrCatDev">
+    <title>MrCatDev | Front-end Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+
+  <style>
+      .container-mrcatdev {
+    display: flex;
+    flex-wrap:wrap;
+    justify-content: center;
+    text-align: center;
+    align-items:center;
+}
+.container-mrcatdev > * {
+    flex:1 1 50%;
+    max-width:50%
+   
+}
+
+@media (max-width:768px){
+   .container-mrcatdev > * {
+    flex:1 1 100%;
+    max-width:100%;
+    margin:auto;
+
+   } 
+}
+
+img{
+    height:auto;
+    max-width:100%;
+
+}
+
+.logo{
+    height:100px;
+}
+
+body{
+    background:#000;
+    position:fixed;
+    color:#ccc;
+    font-family: 'Bangers', cursive;
+}
+  </style>
+</head>
+  <body>
+ 
+    <div class="container-mrcatdev">
+        <div>
+            <img class="logo" src="https://mrcatdev.com/mrcatdev.png" alt="mrcatdev" />
+            <h1>MrCatDev in the Way...</h1>
+        </div>
+        <div>
+            <img src="https://mrcatdev.com/cat.jpeg" class="img" alt="mrcat" />
+        </div>
+    </div>
+ 
+  </body>
+</html>
