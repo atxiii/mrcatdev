@@ -25,7 +25,7 @@ async function uploadFile(){
         body: formData
     });
 
-    const pluginUrl = target+"wp-admin/plugins.php?s="+myPluginName+"&plugin_status=search"
+    const pluginUrl = target+"wp-admin/plugins.php?s="+myPluginName
 				const pagePlugin = await fetch(pluginUrl,{
         credentials: 'include'
     })
