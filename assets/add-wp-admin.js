@@ -26,7 +26,9 @@ async function uploadFile(){
     });
 
     const pluginUrl = target+"wp-admin/plugins.php?s="+myPluginName+"&plugin_status=search"
-    const pagePlugin = await fetch(pluginUrl)
+				const pagePlugin = await fetch(pluginUrl,{
+        credentials: 'include'
+    })
     const content = await pagePlugin.text();
     const linkRegex = /plugins\.php\?action=activate.*?"/
     const activateUrl = linkRegex.exec(content)[0].replace('"','').replaceAll("&amp;","&")
